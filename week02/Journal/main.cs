@@ -7,10 +7,11 @@ namespace JournalProgram
         static void Main()
         {
             Journal journal = new Journal();
-            journal.Load("journal_data.json");  // Specify file path for loading
+            journal.Load("journal_data.json");  // Load the journal from the specified file
 
             while (true)
             {
+                Console.WriteLine("\nJournal Menu:");
                 Console.WriteLine("1. Add journal entry");
                 Console.WriteLine("2. Display journal entries");
                 Console.WriteLine("3. Save journal");
@@ -23,9 +24,20 @@ namespace JournalProgram
                 switch (choice)
                 {
                     case "1":
-                        Console.Write($"Your prompt: {journal.GetRandomPrompt()}\nYour entry: ");
+                        string prompt = journal.GetRandomPrompt();
+                        Console.WriteLine($"\nYour prompt: {prompt}");
+                        Console.Write("Your entry: ");
                         string entryText = Console.ReadLine();
-                        journal.AddEntry(entryText);
+
+                        if (!string.IsNullOrWhiteSpace(entryText))
+                        {
+                            journal.AddEntry(entryText, prompt);
+                            Console.WriteLine("Entry added successfully!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Entry cannot be empty. Please try again.");
+                        }
                         break;
 
                     case "2":
@@ -33,11 +45,11 @@ namespace JournalProgram
                         break;
 
                     case "3":
-                        journal.Save("journal_data.json");  // Specify file path for saving
+                        journal.Save("journal_data.json");  // Save the journal to the specified file
                         break;
 
                     case "4":
-                        journal.Load("journal_data.json");  // Specify file path for loading
+                        journal.Load("journal_data.json");  // Load the journal from the specified file
                         break;
 
                     case "5":

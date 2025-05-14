@@ -37,16 +37,22 @@ public class Journal
 
     private static Random random = new Random();  // Reuse Random object
 
-    public void AddEntry(string text)
+    public void AddEntry(string text, string prompt)
     {
-        var prompt = GetRandomPrompt();
         var date = DateTime.Now;
         var newEntry = new Entry(text, prompt, date);
         entries.Add(newEntry);
+        Console.WriteLine("Entry added successfully.");
     }
 
     public void DisplayEntries()
     {
+        if (entries.Count == 0)
+        {
+            Console.WriteLine("No entries to display.");
+            return;
+        }
+
         foreach (var entry in entries)
         {
             Console.WriteLine(entry);
@@ -75,8 +81,18 @@ public class Journal
             try
             {
                 var json = File.ReadAllText(filename);
-                entries = JsonSerializer.Deserialize<List<Entry>>(json);
-                Console.WriteLine("Journal loaded.");
+                var loadedEntries = JsonSerializer.Deserialize<List<Entry>>(json);
+                
+                // Ensure loadedEntries is not null
+                if (loadedEntries != null)
+                {
+                    entries = loadedEntries;
+                    Console.WriteLine("Journal loaded.");
+                }
+                else
+                {
+                    Console.WriteLine("No entries found in the loaded journal.");
+                }
             }
             catch (Exception ex)
             {
@@ -89,7 +105,7 @@ public class Journal
         }
     }
 
-    private string GetRandomPrompt()
+    public string GetRandomPrompt()
     {
         return prompts[random.Next(prompts.Count)];
     }
@@ -116,9 +132,10 @@ public class Program
             switch (choice)
             {
                 case "1":
-                    Console.Write($"Your prompt: {journal.GetRandomPrompt()}\nYour entry: ");
+                    string prompt = journal.GetRandomPrompt();
+                    Console.Write($"Your prompt: {prompt}\nYour entry: ");
                     var entryText = Console.ReadLine();
-                    journal.AddEntry(entryText);
+                    journal.AddEntry(entryText, prompt);
                     break;
                 case "2":
                     journal.DisplayEntries();

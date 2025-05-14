@@ -13,15 +13,15 @@ namespace JournalProgram
         // Constructor to initialize a journal entry
         public Entry(string text, string prompt, DateTime date)
         {
-            Text = text;
-            Prompt = prompt;
+            Text = text ?? "No text provided";
+            Prompt = prompt ?? "No prompt provided";
             Date = date;
         }
 
         // Override ToString to display journal entry in a readable format
         public override string ToString()
         {
-            return $"Date: {Date}\nPrompt: {Prompt}\nEntry: {Text}\n" + new string('-', 20);
+            return $"Date: {Date:yyyy-MM-dd HH:mm}\nPrompt: {Prompt}\nEntry: {Text}\n" + new string('=', 30);
         }
     }
 }
