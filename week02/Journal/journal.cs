@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-[Serializable]
 public class Entry
 {
     public string Text { get; set; }
     public string Prompt { get; set; }
     public DateTime Date { get; set; }
+
+    public Entry() { }  // Parameterless constructor needed for deserialization
 
     public Entry(string text, string prompt, DateTime date)
     {
@@ -35,7 +36,7 @@ public class Journal
         "What challenges did you face today?"
     };
 
-    private static Random random = new Random();  // Reuse Random object
+    private static Random random = new Random();
 
     public void AddEntry(string text, string prompt)
     {
@@ -82,8 +83,7 @@ public class Journal
             {
                 var json = File.ReadAllText(filename);
                 var loadedEntries = JsonSerializer.Deserialize<List<Entry>>(json);
-                
-                // Ensure loadedEntries is not null
+
                 if (loadedEntries != null)
                 {
                     entries = loadedEntries;
@@ -120,6 +120,7 @@ public class Program
 
         while (true)
         {
+            Console.WriteLine("\nJournal Menu:");
             Console.WriteLine("1. Add journal entry");
             Console.WriteLine("2. Display journal entries");
             Console.WriteLine("3. Save journal");
@@ -127,15 +128,22 @@ public class Program
             Console.WriteLine("5. Exit");
 
             Console.Write("Choose an option: ");
-            var choice = Console.ReadLine();
+            var choice = Console.ReadLine() ?? "";
 
             switch (choice)
             {
                 case "1":
                     string prompt = journal.GetRandomPrompt();
                     Console.Write($"Your prompt: {prompt}\nYour entry: ");
-                    var entryText = Console.ReadLine();
-                    journal.AddEntry(entryText, prompt);
+                    var entryText = Console.ReadLine() ?? "";
+                    if (!string.IsNullOrWhiteSpace(entryText))
+                    {
+                        journal.AddEntry(entryText, prompt);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Entry cannot be empty.");
+                    }
                     break;
                 case "2":
                     journal.DisplayEntries();

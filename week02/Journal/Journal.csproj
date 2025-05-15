@@ -1,15 +1,8 @@
-# Reading the uploaded Journal.csproj file
-file_path = "/mnt/data/Journal.csproj"
-
-# Load the content of the file
-with open(file_path, "r") as file:
-    content = file.readlines()
-
-# Remove the problematic StartupObject line
-updated_content = [line for line in content if "StartupObject" not in line]
-
-# Save the updated content back to the file
-with open(file_path, "w") as file:
-    file.writelines(updated_content)
-
-file_path
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+</Project>
