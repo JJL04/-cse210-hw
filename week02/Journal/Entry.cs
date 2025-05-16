@@ -1,5 +1,3 @@
-using System;
-
 namespace JournalProgram
 {
     [Serializable]  // Ensures that the class can be serialized for saving and loading

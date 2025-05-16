@@ -1,5 +1,3 @@
-using System;
-
 namespace JournalProgram
 {
     public class Program
@@ -8,7 +6,6 @@ namespace JournalProgram
         {
             var journal = new Journal();
             journal.Load();
-
             while (true)
             {
                 Console.WriteLine("1. Add journal entry");
@@ -16,10 +13,9 @@ namespace JournalProgram
                 Console.WriteLine("3. Save journal");
                 Console.WriteLine("4. Load journal");
                 Console.WriteLine("5. Exit");
-
                 Console.Write("Choose an option: ");
+                
                 var choice = Console.ReadLine();
-
                 switch (choice)
                 {
                     case "1":
