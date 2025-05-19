@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Week 02: Journal",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-week02-Journal",
+            "program": "${workspaceFolder}/week02/Journal/bin/Debug/net8.0/Journal.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/week02/Journal",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "stopAtEntry": false
+        }
+    ]
+}
