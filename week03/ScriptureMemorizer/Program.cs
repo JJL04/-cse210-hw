@@ -13,7 +13,9 @@ namespace ScriptureMemorizer
 
             while (true)
             {
-                Console.Clear();
+                // Safe console clearing
+                ClearConsole();
+
                 scripture.Display();
 
                 if (scripture.AllWordsHidden())
@@ -32,6 +34,20 @@ namespace ScriptureMemorizer
                 }
 
                 scripture.HideRandomWords(3);
+            }
+        }
+
+        private static void ClearConsole()
+        {
+            try
+            {
+                // Attempt to clear the console
+                Console.Clear();
+            }
+            catch (IOException)
+            {
+                // Fallback if clearing the console is not supported
+                Console.WriteLine("\n[Console clearing is not supported in this environment.]\n");
             }
         }
     }
