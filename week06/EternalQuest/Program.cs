@@ -12,7 +12,8 @@ class Program
         string choice = "";
         while (choice != "6")
         {
-            Console.Clear();
+            try { Console.Clear(); } catch { }
+
             Console.WriteLine($"You have {totalScore} points.\n");
             Console.WriteLine("Menu:");
             Console.WriteLine("1. Create New Goal");
